@@ -47,7 +47,6 @@ legend_elements = [
 ]
 
 plt.legend(handles=legend_elements)
-
 plt.show()
 
 
