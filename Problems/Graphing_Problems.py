@@ -1,7 +1,3 @@
-import socket
-from operator import contains
-from typing import List
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -9,11 +5,6 @@ import numpy as np
 credit_score = np.array([500,600,700, 700, 800, 800, 750, 550, 650, 825])
 #Interest Rate(%)
 interest_rate = np.array([7.31, 6.7, 5.95, 6.4, 5.4, 5.7, 5.9, 7.0, 6.5, 5.7])
-
-#BorrowerID from 1 to 10
-# is i in n
-# [1,10]
-# where n(score, rate) is the index in credit_score || interest_rate
 
 #Problem 6
 #--- Plot 6 ----
@@ -37,8 +28,6 @@ interest_rate_minus_mean_array = interest_rate - mean_interest_rate#Y - y_mea
 #b1 = sum of           (x-X_mean)(y-Y_mean)
                  Sum  -----------------------
                           (x-X_mean)^2
-                          
-                          
                           
 y_hat = b0 + b1x
 """

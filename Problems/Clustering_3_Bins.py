@@ -5,7 +5,6 @@ c) Clustering.
 """
 #I am going to do K means clustering on this data set
 import numpy as np
-from matplotlib.cbook import index_of
 
 data = np.array([5,10,11,13,15,35,50,55,72,92,204,215])
 #Choosing 3 starting centroids randomly
@@ -45,7 +44,7 @@ for iteration in range(10):
         np.mean(bin2) if len(bin2) else centroids[1],
         np.mean(bin3) if len(bin3) else centroids[2],
     ]
-    #If they're close enough
+    #If they're within .05
     if np.allclose(new_centroids, centroids, 0.05):
         break
     print(f"\niter {iteration}")
