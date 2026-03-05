@@ -1,7 +1,5 @@
 import math
 import sys
-from statistics import covariance
-
 import pandas as pd
 
 #Df stands for data frame
