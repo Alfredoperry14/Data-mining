@@ -4,9 +4,6 @@ import pandas as pd
 
 #Df stands for data frame
 df = pd.read_csv("Iris_Flower_Dataset_.csv")
-
-#print(len(df))
-
 #Min euclidean distance must be positive
 # -1 can be the min
 # sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
@@ -23,61 +20,66 @@ setosa_petal = setosa[["petal_length", "petal_width"]]
 virginica_petal = virginica[["petal_length", "petal_width"]]
 versicolor_petal = versicolor[["petal_length", "petal_width"]]
 
-#i.) setosa vs virginica
-#Two find the closest points I can find
-
 def distance(s, v):
     return math.sqrt((s[0] - v[0])**2 + (s[1] - v[1])**2)
-
+#i.) setosa vs virginica
 minDistance = sys.maxsize
 for s in setosa_petal.itertuples(index=False):
     for vir in virginica_petal.itertuples(index=False):
         minDistance = min(minDistance,distance(s,vir))
 #ii
 print('Min Distance between setosa and virginica', minDistance)
-
 minDistance = sys.maxsize
 for s in setosa_petal.itertuples(index=False):
     for vir in versicolor_petal.itertuples(index=False):
         minDistance = min(minDistance,distance(s,vir))
 #iii
 print('Min Distance between setosa and versicolor', minDistance)
-
 minDistance = sys.maxsize
 for s in setosa_petal.itertuples(index=False):
     for vir in virginica_petal.itertuples(index=False):
         minDistance = min(minDistance,distance(s,vir))
-
 print('Min Distance between versicolor and virginica', minDistance)
 
 #Sxy -> Covariance
 #Sx, Sy -> Standard deviation
 #Part C finding average correlation between two points (Petal length vs petal width)
-petal_width = df["petal_width"]
-petal_length = df["petal_length"]
+attributes = {
+"sepal_length" : df["sepal_length"],
+"sepal_width" : df["sepal_width"],
+"petal_length" : df["petal_length"],
+"petal_width" : df["petal_width"],
+}
 
-petal_width_mean = petal_width.mean()
-petal_length_mean = petal_length.mean()
+def correlation(x, y):
+    x_mean = x.mean()
+    y_mean = y.mean()
 
-#Covariance
-covariance_pw = petal_width - petal_width_mean
-covariance_pl = petal_length - petal_length_mean
+    x_cov = x - x_mean
+    y_cov = y - y_mean
 
-covariance = (covariance_pl * covariance_pw).sum() / (len(petal_length) - 1)
-print('Covariance between petal width and petal length', covariance)
+    covariance = (x_cov * y_cov).sum() / (len(x) - 1)
 
-std_pw = ((petal_width - petal_width_mean) ** 2).sum() / (len(petal_width) - 1)
-std_pw = math.sqrt(std_pw)
+    std_x = ((x - x_mean) ** 2).sum() / (len(x) - 1)
+    std_x = math.sqrt(std_x)
 
-std_pl = ((petal_length - petal_length_mean) ** 2).sum() / (len(petal_length) - 1)
-std_pl = math.sqrt(std_pl)
-print('Standard deviation of petal width and petal length', std_pl)
+    std_y = ((y - y_mean) ** 2).sum() / (len(y) - 1)
+    std_y = math.sqrt(std_y)
 
-correlation = covariance / (std_pl * std_pw)
-print('Correlation between petal width and petal length', correlation)
+    correlation = covariance / (std_x * std_y)
+    return correlation
+
+for x_name in attributes:
+    for y_name in attributes:
+        print(x_name, "vs", y_name, "=",
+              round(correlation(attributes[x_name], attributes[y_name]), 4))
+    print()
+#Comparing the pandas table compared to the manual one shows they're the same
+print("Pandas Function:")
+print(df.corr(numeric_only=True))
 
 #Part D
-#Figure 3
+#Did the rule model for Figure 3 & 4
 pl = 2.6
 
 def figure3(petal_length):
@@ -102,3 +104,4 @@ def figure4(petal_length):
 figure3(pl)
 figure4(pl)
 #The answer for part D is Versicolor
+

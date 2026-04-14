@@ -54,7 +54,8 @@ plt.grid(True)
 plt.show()
 
 """
-For part b the temperature is a greater predictor for the temperature because there is more of a total variance
+For part b the temperature is a greater predictor for whether we play or not because there is more of a total variance
+than in humidity
 """
 
 import pandas as pd
@@ -215,8 +216,10 @@ For the rain branch we get the most results based on the wind
 
 print(sunny_df[sunny_df["Temperature"] <= 77.5]["Play"])
 
-#9d, Temperature is given as low so I'm assuming that it's less than 77.5.
-# In this case it would be sunny based-on the decision tree
+# 9d
+# In this case the outlook is sunny
+# Temperature is given as low so I'm assuming that it's less than 77.5.
+# In this case it would be Play = Yes based-on the decision tree
 
 def decision_tree(outlook, temperature, wind):
     if(outlook == "Sunny"):
